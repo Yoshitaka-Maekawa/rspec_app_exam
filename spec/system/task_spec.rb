@@ -14,10 +14,11 @@ RSpec.describe 'Task', type: :system do
         expect(current_path).to eq project_tasks_path(project)
       end
 
-      xit 'Project詳細からTask一覧ページにアクセスした場合、Taskが表示されること' do
+      it 'Project詳細からTask一覧ページにアクセスした場合、Taskが表示されること' do
         # FIXME: テストが失敗するので修正してください
         visit project_path(project)
         click_link 'View Todos'
+        switch_to_window(windows.last)
         expect(page).to have_content task.title
         expect(Task.count).to eq 1
         expect(current_path).to eq project_tasks_path(project)
@@ -55,7 +56,7 @@ RSpec.describe 'Task', type: :system do
 
   describe 'Task編集' do
     context '正常系' do
-      xit 'Taskを編集した場合、一覧画面で編集後の内容が表示されること' do
+      it 'Taskを編集した場合、一覧画面で編集後の内容が表示されること' do
         # FIXME: テストが失敗するので修正してください
         visit edit_project_task_path(project, task)
         fill_in 'Deadline', with: Time.current
@@ -92,7 +93,7 @@ RSpec.describe 'Task', type: :system do
   describe 'Task削除' do
     context '正常系' do
       # FIXME: テストが失敗するので修正してください
-      xit 'Taskが削除されること' do
+      it 'Taskが削除されること' do
         visit project_tasks_path(project)
         click_link 'Destroy'
         page.driver.browser.switch_to.alert.accept
